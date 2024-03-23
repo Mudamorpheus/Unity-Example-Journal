@@ -26,7 +26,7 @@ namespace Scripts.Architucture.Cores
         {
             //Player profile
             PlayerProfile profile = PlayerProfile.GetInstance();
-            profile.Initialize("Username", StaticKeys.Instance.Settings, StaticKeys.Instance.ContactsFile, StaticKeys.Instance.ContactsPregen, StaticKeys.Instance.PicturesFile, StaticKeys.Instance.PicturesPregen, presetPicturesCount);
+            profile.Initialize("User", StaticKeys.Instance.Settings, StaticKeys.Instance.ContactsFile, StaticKeys.Instance.ContactsPregen, StaticKeys.Instance.PicturesFile, StaticKeys.Instance.PicturesPregen, presetPicturesCount);
 
             //First Launch
             if (profile.Settings.IsFirstLaunch())

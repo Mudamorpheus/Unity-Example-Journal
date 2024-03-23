@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 using TMPro;
 
+using Scripts.Architucture.Cores;
+using Scripts.Architucture.ScriptableObjects;
 using Scripts.Data.Player;
 using Scripts.UI.Factories;
-using Scripts.Architucture.Cores;
 
 namespace Scripts.UI.Items
 {
@@ -129,7 +130,7 @@ namespace Scripts.UI.Items
 
         public void SwitchProfile()
         {
-            JournalCore.Instance.SwitchProfile(contactData);
+            JournalCore.Instance.SwitchProfile(this);
         }
 
         //==========================
@@ -138,7 +139,7 @@ namespace Scripts.UI.Items
 
         private void ResetBorderColor()
         {
-            if (contactData.id % 2 == 1)
+            if (transform.GetSiblingIndex() % 2 == 1)
             {
                 uiImageBorder.color = uiColorBorder;
             }
@@ -169,7 +170,25 @@ namespace Scripts.UI.Items
 
         private void ResetFavouriteSprite()
         {
-            uiImageFavourite.sprite = contactData.favourite ? JournalCore.Instance.SpriteFavouriteOn : JournalCore.Instance.SpriteFavouriteOff;
+            uiImageFavourite.sprite = contactData.favourite ? StaticSprites.Instance.SpriteFavouriteOn : StaticSprites.Instance.SpriteFavouriteOff;
+        }
+
+        public void Show()
+        {
+            //uiImageBorder.gameObject.SetActive(true);
+            foreach(Transform child in gameObject.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+
+        public void Hide()
+        {
+            //uiImageBorder.gameObject.SetActive(false);
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
         }
     }
 }

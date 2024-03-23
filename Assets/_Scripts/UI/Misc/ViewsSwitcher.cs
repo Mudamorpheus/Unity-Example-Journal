@@ -1,78 +1,84 @@
+using Scripts.Data.Player;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
-public class ViewsSwitcher
+namespace Scripts.UI.Misc
 {
-    //==========================
-    //=====FIELDS
-    //==========================
-
-    private Canvas[] viewsArray;
-    private Canvas viewCurrent;
-    private Canvas viewPrevious;
-
-    //==========================
-    //=====CONSTRUCTOR
-    //==========================
-
-    public ViewsSwitcher(params Canvas[] views)
+    public class ViewsSwitcher
     {
-        viewsArray = views;
-    }
+        //==========================
+        //=====FIELDS
+        //==========================
 
-    //==========================
-    //=====API
-    //==========================
+        private Canvas[] viewsArray;
+        private Canvas viewCurrent;
+        private Canvas viewPrevious;
 
-    //Switch views
-    public void Switch(Canvas view)
-    {
-        if(viewsArray.Contains(view))
+        //==========================
+        //=====CONSTRUCTOR
+        //==========================
+
+        public ViewsSwitcher(params Canvas[] views)
         {
-            HideAll();
-            Show(view);
-
-            viewPrevious = viewCurrent;
-            viewCurrent = view;
+            viewsArray = views;
         }
-    }
-    public void Switch(int index)
-    {        
-        var view = viewsArray[index];
-        if (viewsArray.Contains(view))
-        {
-            HideAll();
-            Show(view);
 
-            viewPrevious = viewCurrent;
-            viewCurrent = view;
+        //==========================
+        //=====API
+        //==========================
+
+        //Switch views
+        public void Switch(Canvas view)
+        {
+            if (viewsArray.Contains(view))
+            {
+                HideAll();
+                Show(view);
+
+                viewPrevious = viewCurrent;
+                viewCurrent = view;
+            }
         }
-    }
 
-    public void Back()
-    {
-        Switch(viewPrevious);
-    }
-
-    //==========================
-    //=====METHODS
-    //==========================
-
-    private void Show(Canvas view)
-    {
-        view.enabled = true;
-    }
-    private void Hide(Canvas view)
-    {
-        view.enabled = false;
-    }
-
-    private void HideAll()
-    {
-        foreach (var view in viewsArray)
+        public void Switch(int index)
         {
-            Hide(view);
+            var view = viewsArray[index];
+            if (viewsArray.Contains(view))
+            {
+                HideAll();
+                Show(view);
+
+                viewPrevious = viewCurrent;
+                viewCurrent = view;
+            }
+        }
+
+        public void Back()
+        {
+            Switch(viewPrevious);
+        }
+
+        //==========================
+        //=====METHODS
+        //==========================
+
+        protected void Show(Canvas view)
+        {
+            view.enabled = true;
+        }
+        protected void Hide(Canvas view)
+        {
+            view.enabled = false;
+        }
+
+        protected void HideAll()
+        {
+            foreach (var view in viewsArray)
+            {
+                Hide(view);
+            }
         }
     }
 }

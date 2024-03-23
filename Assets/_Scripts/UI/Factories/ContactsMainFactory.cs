@@ -16,13 +16,14 @@ namespace Scripts.UI.Factories
 
         public ContactsMainFactory(GameObject factoryPrefab, GameObject factoryParent) : base(factoryPrefab, factoryParent)
         {
+
         }
 
         //==========================
         //=====FACTORY
         //==========================
 
-        private ContactsFactory favouriteFactory;
+        private ContactsFactory factoryFavourite;
 
         public override GameObject Create(Contact data)
         {
@@ -30,24 +31,14 @@ namespace Scripts.UI.Factories
 
             var item = product.GetComponent<ContactItem>();
             item.SetData(data);
-            item.SetLinkedFactories(this, this, favouriteFactory);
+            item.SetLinkedFactories(this, this, factoryFavourite);
 
             return product;
         }
 
-        public void Init(int count)
+        public void Link(ContactsFactory favouriteFactory)
         {
-            var profile = PlayerProfile.GetInstance();
-            for (int i = 0; i < count; i++)
-            {
-                var contact = profile.Contacts.DataList[i];
-                Create(contact);
-            }
-        }
-
-        public void LinkFactory(ContactsFactory favouriteFactory)
-        {
-            this.favouriteFactory = favouriteFactory;
+            factoryFavourite = favouriteFactory;
         }
     }
 }

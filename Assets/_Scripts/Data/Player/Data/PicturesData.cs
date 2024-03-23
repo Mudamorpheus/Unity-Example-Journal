@@ -4,6 +4,7 @@ using System.Text;
 
 using UnityEngine;
 
+using Scripts.Architucture.ScriptableObjects;
 using Scripts.Data.InputOutput;
 
 namespace Scripts.Data.Player
@@ -34,7 +35,7 @@ namespace Scripts.Data.Player
             for(int i = 0; i < dataList.data.Count; i++)
             {
                 var data = base.dataList.data[i];
-                string name = DataKeys.PicturesFile + i.ToString();
+                string name = StaticKeys.Instance.PicturesFile + i.ToString();
                 FileIO.SaveImage(name, "png", data);
             }
         }
@@ -44,7 +45,7 @@ namespace Scripts.Data.Player
             dataList.data = new List<Texture2D>();
             for (int i = 0; i < picturesCount; i++)
             {
-                string name = DataKeys.PicturesPregen + i.ToString();
+                string name = StaticKeys.Instance.PicturesPregen + i.ToString();
                 try
                 {
                     Texture2D texture = FileIO.LoadImage(name, "png");

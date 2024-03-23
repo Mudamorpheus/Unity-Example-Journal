@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Scripts.Architucture.ScriptableObjects;
 using Scripts.Data.InputOutput;
 using Scripts.Data.Player;
-using System.Threading.Tasks;
-using System.Collections;
 
 namespace Scripts.Architucture.Cores
 {
@@ -27,13 +26,13 @@ namespace Scripts.Architucture.Cores
         {
             //Player profile
             PlayerProfile profile = PlayerProfile.GetInstance();
-            profile.Initialize("Username", DataKeys.Settings, DataKeys.ContactsFile, DataKeys.ContactsPregen, DataKeys.PicturesFile, DataKeys.PicturesPregen, presetPicturesCount);
+            profile.Initialize("Username", StaticKeys.Instance.Settings, StaticKeys.Instance.ContactsFile, StaticKeys.Instance.ContactsPregen, StaticKeys.Instance.PicturesFile, StaticKeys.Instance.PicturesPregen, presetPicturesCount);
 
             //First Launch
             if (profile.Settings.IsFirstLaunch())
             {
-                await FileIO.DownloadUrl(presetContactsJsonUrl, DataKeys.ContactsPregen);
-                await FileIO.DownloadImages(presetPicturesUrl, DataKeys.PicturesPregen, presetPicturesCount);
+                await FileIO.DownloadUrl(presetContactsJsonUrl, StaticKeys.Instance.ContactsPregen);
+                await FileIO.DownloadImages(presetPicturesUrl, StaticKeys.Instance.PicturesPregen, presetPicturesCount);
             }               
                              
             //Load or pregen data

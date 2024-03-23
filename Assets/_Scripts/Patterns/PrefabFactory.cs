@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public abstract class PrefabFactory
+namespace Scripts.Patterns
 {
-    //==========================
-    //=====FIELDS
-    //==========================
-    
-    protected GameObject factoryPrefab;
-    protected GameObject factoryParent;
-    public GameObject FactoryParent { get { return factoryParent; } }
-
-    //==========================
-    //=====CONSTRUCTOR
-    //==========================
-
-    public PrefabFactory(GameObject factoryPrefab, GameObject factoryParent)
+    public abstract class PrefabFactory
     {
-        this.factoryPrefab = factoryPrefab;
-        this.factoryParent = factoryParent;
-    }
+        //==========================
+        //=====FIELDS
+        //==========================
 
-    //==========================
-    //=====FACTORY
-    //==========================
+        protected GameObject factoryPrefab;
+        protected GameObject factoryParent;
+        public GameObject FactoryParent { get { return factoryParent; } }
 
-    public virtual GameObject Create()
-    {
-        var product = GameObject.Instantiate(factoryPrefab, factoryParent.transform);
+        //==========================
+        //=====CONSTRUCTOR
+        //==========================
 
-        return product;
+        public PrefabFactory(GameObject factoryPrefab, GameObject factoryParent)
+        {
+            this.factoryPrefab = factoryPrefab;
+            this.factoryParent = factoryParent;
+        }
+
+        //==========================
+        //=====FACTORY
+        //==========================
+
+        public virtual GameObject Create()
+        {
+            var product = GameObject.Instantiate(factoryPrefab, factoryParent.transform);
+
+            return product;
+        }
     }
 }

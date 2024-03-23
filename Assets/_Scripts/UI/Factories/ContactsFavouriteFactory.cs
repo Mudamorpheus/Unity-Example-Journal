@@ -6,6 +6,7 @@ using UnityEngine;
 using Scripts.Data.Player;
 using Scripts.Architucture.Cores;
 using Scripts.UI.Items;
+using System.Linq;
 
 namespace Scripts.UI.Factories
 {
@@ -17,13 +18,14 @@ namespace Scripts.UI.Factories
 
         public ContactsFavouriteFactory(GameObject factoryPrefab, GameObject factoryParent) : base(factoryPrefab, factoryParent)
         {
+
         }
 
         //==========================
         //=====FACTORY
         //==========================
 
-        private ContactsFactory mainFactory;
+        private ContactsFactory factoryMain;
 
         public override GameObject Create(Contact data)
         {
@@ -31,27 +33,58 @@ namespace Scripts.UI.Factories
 
             var item = product.GetComponent<ContactItem>();
             item.SetData(data);
-            item.SetLinkedFactories(this, mainFactory, this);
+            item.SetLinkedFactories(this, factoryMain, this);
 
             return product;
         }
 
-        public void Init(int count)
+        public override void Fill(int count)
         {
             var profile = PlayerProfile.GetInstance();
-            for (int i = 0; i < count; i++)
+            int size = profile.Contacts.DataList.Count;
+            for (int i = 0; i < size; i++)
             {
                 var contact = profile.Contacts.DataList[i];
                 if(contact.favourite)
                 {
+                    //Create
                     Create(contact);
+                    factoryLastId = i;
+
+                    //Limit
+                    if (factoryList.Count >= count)
+                    {
+                        break;
+                    }
                 }                
-            }
+            }            
         }
 
-        public void LinkFactory(ContactsFactory mainFactory)
+        public override void Next()
         {
-            this.mainFactory = mainFactory;
+            var profile = PlayerProfile.GetInstance();
+            int size = profile.Contacts.DataList.Count;
+
+            //End of scroll
+            for(int i = factoryLastId+1; i < size; i++)
+            {                
+                if (factoryLastId < size)
+                {
+                    var contact = profile.Contacts.DataList[i];
+                    if (contact.favourite)
+                    {
+                        Create(contact);
+                        factoryLastId = i;
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        public void Link(ContactsFactory mainFactory)
+        {
+            factoryMain = mainFactory;
         }
     }
 }

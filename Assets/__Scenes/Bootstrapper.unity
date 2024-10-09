@@ -867,8 +867,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextScene: Journal
   presetContactsJsonUrl: https://drive.google.com/uc?export=download&download&id=1YvE6Y5-vxVWXrrYyb83ssqMfVUUkndLw
-  presetPicturesUrl: https://source.unsplash.com/random/200x200?sig=incrementingIdentifier
-  presetPicturesCount: 5
+  presetPicturesUrl: https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png
+  presetPicturesCount: 1
 --- !u!1 &2023684960
 GameObject:
   m_ObjectHideFlags: 0
